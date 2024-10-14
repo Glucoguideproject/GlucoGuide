@@ -45,7 +45,7 @@ def predict_diabetes(request):
             diabetes_risk = model.predict_proba(input_data_scaled)[0][1]  # Probability of positive class (diabetes)
             user_profile.diabetes_risk = f"{diabetes_risk * 100:.2f}%"
             user_profile.save()
-            user_suggestions_view(request)
+            user_suggestions_view(request, diabetes_risk*100)
             # Update the user profile with diabetes status based on prediction
             if prediction[0] == 1:
                 user_profile.status = True  # Diabetes detected
@@ -192,9 +192,8 @@ def get_dietary_suggestions(risk_percentage):
         }
 
 
-def user_suggestions_view(request):
-    # Get the risk percentage from the user's profile
-    risk_percentage = float(request.user.userprofile.diabetes_risk[:-1])
+def user_suggestions_view(request, risk_percentage):
+
     # Generate dietary suggestions based on the risk percentage
     suggestions = get_dietary_suggestions(risk_percentage)
 
