@@ -16,3 +16,4 @@ class EntryAdmin(admin.ModelAdmin):
 @admin.register(UserHealthSurvey)
 class UserHealthSurveyAdmin(admin.ModelAdmin):
     pass
+

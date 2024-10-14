@@ -160,6 +160,7 @@ def resend_otp(request):
             user = User.objects.get(id=request.session['login_user_id'])
             email = user.email
         
+        
         # Send the OTP to the user's email
         subject = "Your OTP Code"
         message = f"Your OTP code is {new_otp}."
