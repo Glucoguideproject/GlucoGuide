@@ -15,11 +15,11 @@ from predictor.models import DietarySuggestion
 def index(request):
     return render(request, "main/index.html")
 
-
+@login_required(login_url="accounts:login")
 def profile(request):
     return render(request, 'main/profile.html')
 
-
+@login_required(login_url="accounts:login")
 def documents(request):
     if request.method == 'POST':
         form = MedicalDocumentForm(request.POST, request.FILES)
@@ -36,14 +36,14 @@ def documents(request):
 
     return render(request, 'main/document_list.html', {'form': form, 'documents': document_li})
 
-
+@login_required(login_url="accounts:login")
 def delete_document(request, file_id):
     file = MedicalDocument.objects.get(id=file_id)
     if file:
         file.delete()
     return redirect("main:documents")
 
-
+@login_required(login_url="accounts:login")
 def calendar_view(request):
     today = date.today()
     entries = Entry.objects.filter(user=request.user, date=today).first()
@@ -52,7 +52,7 @@ def calendar_view(request):
         'entries': entries
     })
 
-
+@login_required(login_url="accounts:login")
 def get_entries_by_date(request, selected_date):
     entries = Entry.objects.filter(user=request.user, date=selected_date).first()
     if entries:
@@ -63,7 +63,7 @@ def get_entries_by_date(request, selected_date):
         return JsonResponse({'blood_pressure': entries.blood_pressure, 'glucose_level': gl})
     return JsonResponse({'blood_pressure': '', 'glucose_level': ''})
 
-
+@login_required(login_url="accounts:login")
 @csrf_exempt
 def save_entry(request, selected_date):
     if request.method == 'POST':
@@ -113,7 +113,7 @@ def health_survey(request):
 
     return render(request, 'main/survey.html', {'form': form})
 
-
+@login_required(login_url="accounts:login")
 def dashboard_view(request):
     # Get current month and year if not provided
     current_date = timezone.now()
@@ -148,16 +148,17 @@ def dashboard_view(request):
 
     return render(request, 'main/dashboard.html', context)
 
-
+@login_required(login_url="accounts:login")
 def prediction(request):
     return render(request, 'main/prediction.html')
 
-
+@login_required(login_url="accounts:login")
 def dietary_suggestion(request):
     dietary_suggestions = DietarySuggestion.objects.filter(user=request.user).last()
 
     return render(request, 'main/dietary_suggestion.html', {'suggestion': dietary_suggestions})
 
+@login_required(login_url="accounts:login")
 def get_filled_dates(request):
     # Assuming your model has a 'date' field in 'YYYY-MM-DD' format
     filled_dates = Entry.objects.values_list('date', flat=True).distinct()
