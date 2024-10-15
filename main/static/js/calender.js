@@ -149,7 +149,7 @@ $(document).ready(function () {
             data: formData,
             success: function () {
                 alert('Entry saved successfully.');
-                
+                window.location.reload()
                 // Restore button state
                 $buttonText.show();
                 $spinner.hide();

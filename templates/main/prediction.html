@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block title %}
+Prediction
+{% endblock %}
 {% block body %}
     <div class="container my-5">
         <h5>
@@ -25,7 +27,7 @@
                         <td>{{ user.entry_set.all.last.glucose_level }} mg/dl</td>
                     </tr>
                     <tr>
-                        <th>Blood pressure (diastolic):</th>
+                        <th>Blood pressure (systolic/diastolic):</th>
                         <td>{{ user.entry_set.all.last.blood_pressure }}</td>
                     </tr>
                     <tr>
@@ -41,51 +43,7 @@
 
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <h5>
-                    Patient information:
-                </h5>
-                <table class="table table-responsive table-borderless">
-                    <tr>
-                        <th>Full name:</th>
-                        <td>{{ user.userprofile }}</td>
-                    </tr>
-                    <tr>
-                        <th>Gender:</th>
-                        <td>{{ user.userprofile.gender }}</td>
-                    </tr>
-                    <tr>
-                        <th>Date of Birth:</th>
-                        <td>{{ user.userprofile.date_of_birth }}</td>
-                    </tr>
-                    <tr>
-                        <th>Height (meter):</th>
-                        <td>{{ user.userprofile.height }}m</td>
-                    </tr>
-                    <tr>
-                        <th>Weight (kg):</th>
-                        <td>{{ user.userprofile.weight }}kg</td>
-                    </tr>
-                    <tr>
-                        <th>BMI:</th>
-                        <td>{{ user.userprofile.bmi }}</td>
-                    </tr>
-                    <tr>
-                        <th>Address:</th>
-                        <td>{{ user.userprofile.address }}</td>
-                    </tr>
-                    <tr>
-                        <th>Email:</th>
-                        <td>{{ user.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>Phone:</th>
-                        <td>{{ user.userprofile.phone }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-md-8">
                 <h5>
