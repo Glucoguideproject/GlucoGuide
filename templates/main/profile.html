@@ -47,11 +47,23 @@
                     </tr>
                     <tr>
                         <th>Height (meter):</th>
-                        <td>{{ user.userprofile.height }}m</td>
+                        <td>
+                            {% if user.userprofile.height %}
+                            {{ user.userprofile.height }}m
+                            {% else %}
+                            Not Mentioned
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <th>Weight (kg):</th>
-                        <td>{{ user.userprofile.weight }}kg</td>
+                        <td>
+                            {% if user.userprofile.weight %}
+                            {{ user.userprofile.weight }}kg
+                            {% else %}
+                            Not Mentioned
+                            {% endif %}
+                        </td>
                     </tr><tr>
                         <th>BMI:</th>
                         <td>{{ user.userprofile.bmi }}</td>
@@ -65,11 +77,12 @@
                         <td>{{ user.email }}</td>
                     </tr>
                     <tr>
-                        <th>Phone:</th>
+                        <th>Phone Number:</th>
                         <td>{{ user.userprofile.phone }}</td>
                     </tr>
                 </table>
                 <a href="{% url 'main:health_servey' %}" class="btn btn-outline-dark">Update your health Survey data.</a>
+                <a href="{% url 'accounts:logout' %}" class="btn btn-danger">Logout</a>
             </div>
 
 
@@ -158,7 +171,7 @@
                                            value="{{ user.userprofile.address }}">
                                 </div>
                                 <div class="mb-3  col-6">
-                                    <label for="phone" class="form-label">Contact</label>
+                                    <label for="phone" class="form-label">Phone Number</label>
                                     <input type="tel" class="form-control custom-input" id="phone" name="phone"
                                            value="{{ user.userprofile.phone }}">
                                 </div>

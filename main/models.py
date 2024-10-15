@@ -68,9 +68,10 @@ class UserHealthSurvey(models.Model):
         ('low', 'Low')
     ])
     symptoms = models.ManyToManyField(Symptom)
-    high_blood_pressure = models.CharField(max_length=5, choices=[
+    high_blood_pressure = models.CharField(max_length=20, choices=[
         ('yes', 'Yes'),
-        ('no', 'No')
+        ('no', 'No'),
+        ('not_sure', 'Not Sure')
     ])
     gestational_diabetes = models.CharField(max_length=20, choices=[
         ('yes', 'Yes'),

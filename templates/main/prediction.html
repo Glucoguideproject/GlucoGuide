@@ -11,6 +11,7 @@
             of {{ user.first_name }} {{ user.last_name }}
         </h5>
         <h5 class="my-3">Diabetes Risk: {{ user.userprofile.diabetes_risk }}</h5>
+        <p>Overview: {{ user.suggestions.last.get_suggestions.Overview }}</p>
         <div class="row mt-4">
             <div class="col-md-8">
                 <h5>Diabetes prediction data:</h5>
@@ -93,7 +94,7 @@
                 <table class="table table-responsive table-borderless text-capitalize">
                     <tr>
                         <th>Previous diabetes status:</th>
-                        <td>{{ user.health_survey.diabetes_status }}</td>
+                        <td>{{ user.health_survey.get_diabetes_status_display }}</td>
                     </tr>
                     <tr>
                         <th>Blood sugar check:</th>
@@ -122,10 +123,10 @@
                         </td>
                     </tr><tr>
                         <th>High blood pressure:</th>
-                        <td>{{ user.health_survey.high_blood_pressure }}</td>
+                        <td>{{ user.health_survey.get_high_blood_pressure_display }}</td>
                     </tr><tr>
                         <th>Gestational diabetes:</th>
-                        <td>{{ user.health_survey.gestational_diabetes }}</td>
+                        <td>{{ user.health_survey.get_gestational_diabetes_display }}</td>
                     </tr>
 
                 </table>

@@ -96,9 +96,21 @@ $(document).ready(function () {
     $('#save-entry').on('click', function () {
         var selectedDate = $('#selected-date').text();
         // Validate blood pressure input
+        var $button = $(this);
+        var $spinner = $('#spinner');
+        var $buttonText = $button.find('.button-text');
+
+        // Show spinner and disable button
+        $buttonText.hide();
+        $spinner.show();
+        $button.prop('disabled', true); // Disable button to prevent multiple clicks
 
         if (!validateBloodPressure($('#blood-pressure').val())) {
             $('#bp-error').show();  // Show error message
+            // Restore button state if validation fails
+            $buttonText.show();
+            $spinner.hide();
+            $button.prop('disabled', false);
             return; // Prevent form submission
         } else {
             $('#bp-error').hide(); // Hide error message if validation passes
@@ -116,9 +128,18 @@ $(document).ready(function () {
             data: formData,
             success: function () {
                 alert('Entry saved successfully.');
+                
+                // Restore button state
+                $buttonText.show();
+                $spinner.hide();
+                $button.prop('disabled', false);
             },
             error: function () {
                 alert('Failed to save entry.');
+                // Restore button state
+                $buttonText.show();
+                $spinner.hide();
+                $button.prop('disabled', false);
             }
         });
     });
