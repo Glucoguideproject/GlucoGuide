@@ -19,4 +19,5 @@ urlpatterns = [
 
     # Save or update entry for a specific date
     path('save-entry/<str:selected_date>/', views.save_entry, name='save_entry'),
+    path('filled-dates/', views.get_filled_dates, name="filled_dates")
 ]

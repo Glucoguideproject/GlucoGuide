@@ -157,3 +157,9 @@ def dietary_suggestion(request):
     dietary_suggestions = DietarySuggestion.objects.filter(user=request.user).last()
 
     return render(request, 'main/dietary_suggestion.html', {'suggestion': dietary_suggestions})
+
+def get_filled_dates(request):
+    # Assuming your model has a 'date' field in 'YYYY-MM-DD' format
+    filled_dates = Entry.objects.values_list('date', flat=True).distinct()
+    print(filled_dates)
+    return JsonResponse({'filled_dates': list(filled_dates)})

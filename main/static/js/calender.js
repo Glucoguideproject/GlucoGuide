@@ -21,45 +21,66 @@ $(document).ready(function () {
         var calendarHTML = '<table class="table table-bordered">';
         calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
         calendarHTML += '<tbody><tr>';
-
-        // Empty cells before the first day
-        for (var i = 0; i < firstDay; i++) {
-            calendarHTML += '<td></td>';
-        }
-
-        // Add days of the month
-        for (var day = 1; day <= daysInMonth; day++) {
-            if ((i % 7) === 0 && day !== 1) {
-                calendarHTML += '</tr><tr>';  // Start new row every Sunday
-            }
-
-            var dayString = year + '-' + (month + 1).toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
-            var dateObj = new Date(year, month, day);
-            var todayDateObj = new Date();
-
-            // Disable future dates
-            if (dateObj > todayDateObj) {
-                calendarHTML += '<td class="future-date opacity-50">' + day + '</td>';  // Unclickable future date
-            } else {
-                // Check if this is today's date
-                if (dayString === today) {
-                    calendarHTML += '<td class="date selected-date" data-date="' + dayString + '">' + day + '</td>';  // Highlight today's date
-                } else {
-                    calendarHTML += '<td class="date "  data-date="' + dayString + '">' + day + '</td>';
+    
+        // Fetch the filled dates
+        $.ajax({
+            url: '/filled-dates/',  // Adjust the URL to your backend endpoint that returns filled dates
+            method: 'GET',
+            success: function (data) {
+                var filledDates = data.filled_dates;  // Assuming the data contains an array of filled dates in 'YYYY-MM-DD' format
+                
+                // Empty cells before the first day of the month
+                for (var i = 0; i < firstDay; i++) {
+                    calendarHTML += '<td></td>';
                 }
+    
+                // Add days of the month
+                for (var day = 1; day <= daysInMonth; day++) {
+                    if ((i % 7) === 0 && day !== 1) {
+                        calendarHTML += '</tr><tr>';  // Start new row every Sunday
+                    }
+    
+                    var dayString = year + '-' + (month + 1).toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
+                    var dateObj = new Date(year, month, day);
+                    var todayDateObj = new Date();
+    
+                    // Disable future dates
+                    if (dateObj > todayDateObj) {
+                        calendarHTML += '<td class="future-date opacity-50">' + day + '</td>';  // Unclickable future date
+                    } else {
+                        // Check if this is today's date
+                        var cssClass = 'date';  // Default class for date
+    
+                        if (dayString === today) {
+                            cssClass += ' selected-date';  // Highlight today's date
+                        }
+    
+                        // Check if the date has filled data
+                        if (filledDates.includes(dayString)) {
+                            cssClass += ' filled-date';  // Add class for filled dates
+                        }
+    
+                        calendarHTML += '<td class="' + cssClass + '" data-date="' + dayString + '">' + day + '</td>';
+                    }
+    
+                    i++;
+                }
+    
+                // Empty cells after the last day of the month
+                while (i % 7 !== 0) {
+                    calendarHTML += '<td></td>';
+                    i++;
+                }
+    
+                calendarHTML += '</tr></tbody></table>';
+                $('#calendar').html(calendarHTML);  // Render the calendar
+            },
+            error: function () {
+                alert('Failed to load filled dates.');
             }
-            i++;
-        }
-
-        // Empty cells after the last day
-        while (i % 7 !== 0) {
-            calendarHTML += '<td></td>';
-            i++;
-        }
-
-        calendarHTML += '</tr></tbody></table>';
-        $('#calendar').html(calendarHTML);  // Render the calendar
+        });
     }
+    
 
     // Function to load entries based on the selected date
     function loadEntries(date) {
