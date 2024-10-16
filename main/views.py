@@ -161,6 +161,8 @@ def dietary_suggestion(request):
 @login_required(login_url="accounts:login")
 def get_filled_dates(request):
     # Assuming your model has a 'date' field in 'YYYY-MM-DD' format
-    filled_dates = Entry.objects.values_list('date', flat=True).distinct()
-    print(filled_dates)
+    user = request.user
+    filled_dates = Entry.objects.filter(user=user).values_list('date', flat=True).distinct()
+    
+
     return JsonResponse({'filled_dates': list(filled_dates)})
