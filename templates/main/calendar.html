@@ -78,7 +78,7 @@ Calender
         <!-- Right side: Form for selected date -->
         <div class="col-md-6 my-4">
             {% if not user.userprofile.height or not user.userprofile.weight %}
-            <div class="alert alert-warning align-items-center">Please add your height and wight in your profile.</div>
+            <div class="alert alert-warning align-items-center">Please add your height and weight in your profile.</div>
             {% else %}
             <div id="entry-form">
                 <h4>Entries for <span id="selected-date">{{ today }}</span></h4>

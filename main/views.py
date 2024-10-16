@@ -107,6 +107,10 @@ def health_survey(request):
         form = UserHealthSurveyForm(request.POST, instance=survey)  # Use the existing instance
         if form.is_valid():
             form.save()  # This will update the existing survey or create a new one if needed
+            if survey.diabetes_status == "yes":
+                up = request.user.userprofile
+                up.status = True
+                up.save()
             return redirect('main:index')  # Replace with your redirect logic
     else:
         form = UserHealthSurveyForm(instance=survey)  # Pre-populate the form with existing data

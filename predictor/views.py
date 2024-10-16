@@ -5,8 +5,6 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from accounts.models import UserProfile
 from .models import DietarySuggestion
-from django.shortcuts import render
-import numpy as np
 
 # Load the trained model and scaler
 model = joblib.load('saved_model/model.pkl')
@@ -49,8 +47,7 @@ def predict_diabetes(request):
             # Update the user profile with diabetes status based on prediction
             if prediction[0] == 1:
                 user_profile.status = True  # Diabetes detected
-            else:
-                user_profile.status = False  # No diabetes
+            
 
             # Save the updated status in the profile
             user_profile.save()
