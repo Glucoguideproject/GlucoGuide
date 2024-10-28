@@ -10,7 +10,7 @@ Prediction
             {% else %}
                 <div class="badge text-bg-danger">Diabetes detected</div>
             {% endif %}
-            of {{ user.first_name }} {{ user.last_name }}
+            for {{ user.first_name }} {{ user.last_name }}
         </h5>
         <h5 class="my-3">Diabetes Risk: {{ user.userprofile.diabetes_risk }}</h5>
         <p>Overview: {{ user.suggestions.last.get_suggestions.Overview }}</p>

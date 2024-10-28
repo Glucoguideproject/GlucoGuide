@@ -6,8 +6,8 @@ from sklearn.preprocessing import StandardScaler
 data_path = 'data/diabetes.csv'
 data = pd.read_csv(data_path)
 
-# Select key features and the target variable
-X = data[['Glucose', 'BloodPressure', 'BMI', 'Age']]
+# Select all features except the target variable
+X = data.drop('Outcome', axis=1)
 y = data['Outcome']  # Target (whether or not the person has diabetes)
 
 # Split into train and test sets
@@ -23,7 +23,6 @@ print("Data preprocessed successfully.")
 # ----------------------------------------------
 # ----------------------------------------------
 # ----------------------------------------------
-
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
@@ -41,7 +40,6 @@ print(f"Model Accuracy: {accuracy * 100:.2f}%")
 
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
-
 
 # -------------------------------------------
 # -------------------------------------------

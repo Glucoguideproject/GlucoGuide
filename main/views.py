@@ -170,3 +170,6 @@ def get_filled_dates(request):
     
 
     return JsonResponse({'filled_dates': list(filled_dates)})
+
+def user_manual(request):
+    return render(request, 'main/user_manual.html')
